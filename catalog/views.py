@@ -1,4 +1,7 @@
+from django.http import Http404
 from django.shortcuts import render
+from django.views import generic
+
 from .models import *
 
 
@@ -27,3 +30,26 @@ def index(request):
                  'num_books_task': num_books_task,
                  'num_genre_task': num_genre_task}
     )
+
+
+class BookListView(generic.ListView):
+    model = Book
+    paginate_by = 2  # Постраничный вывод
+
+
+class BookDetailView(generic.DetailView):
+    model = Book
+
+# def book_detail_view(request, pk):
+#     try:
+#         book_id = Book.objects.get(pk=pk)
+#     except Book.DoesNotExist:
+#         raise Http404("Book does not exist")
+#
+#     # book_id=get_object_or_404(Book, pk=pk)
+#
+#     return render(
+#         request,
+#         'catalog/book_detail.html',
+#         context={'book': book_id, }
+#     )
