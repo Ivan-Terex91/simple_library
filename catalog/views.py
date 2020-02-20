@@ -40,6 +40,7 @@ class BookListView(generic.ListView):
 class BookDetailView(generic.DetailView):
     model = Book
 
+
 # def book_detail_view(request, pk):
 #     try:
 #         book_id = Book.objects.get(pk=pk)
@@ -53,3 +54,11 @@ class BookDetailView(generic.DetailView):
 #         'catalog/book_detail.html',
 #         context={'book': book_id, }
 #     )
+
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 2
+
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
