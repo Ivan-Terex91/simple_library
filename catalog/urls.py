@@ -1,7 +1,6 @@
 from django.urls import path, re_path
 from . import views
 
-
 urlpatterns = [
     re_path(r'^$', views.index, name='index'),
     re_path(r'^books/$', views.BookListView.as_view(), name='books'),
@@ -14,4 +13,7 @@ urlpatterns = [
     re_path(r'^author/create/$', views.AuthorCreate.as_view(), name='author_create'),
     re_path(r'^author/(?P<pk>\d+)/update/$', views.AuthorUpdate.as_view(), name='author_update'),
     re_path(r'^author/(?P<pk>\d+)/delete/$', views.AuthorDelete.as_view(), name='author_delete'),
+    re_path(r'^book/create/$', views.BookCreate.as_view(), name='book_create'),
+    re_path(r'^book/(?P<pk>\d+)/update/$', views.BookUpdate.as_view(), name='book_update'),
+    re_path(r'^book/(?P<pk>\d+)/delete/$', views.BookDelete.as_view(), name='book_delete'),
 ]
