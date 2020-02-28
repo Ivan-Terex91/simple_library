@@ -3,6 +3,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 import datetime  # for checking renewal date range.
+from django.contrib.auth.models import User
 
 
 # class RenewBookForm(forms.Form):
@@ -47,3 +48,18 @@ class RenewBookModelForm(ModelForm):
         fields = ['due_back', ]
         labels = {'due_back': _('Renewal date'), }
         help_texts = {'due_back': _('Enter a date between now and 4 weeks (default 3).'), }
+
+
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'email')
+
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password2']:
+            raise forms.ValidationError('Passwords don\'t match.')
+        return cd['password2']
